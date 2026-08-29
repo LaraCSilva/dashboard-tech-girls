@@ -1,6 +1,6 @@
 # Tech Girls · Auto Report
 
-Upload de planilha de vendas + dashboard automático. CSS puro, sem Tailwind.
+Upload de planilha de vendas + dashboard automático. CSS puro.
 
 ## Rodar o projeto
 
@@ -9,14 +9,11 @@ npm install
 npm run dev
 ```
 
-Abre em `http://localhost:5173`. O projeto já vem completo (Vite + React +
-react-router-dom) — se você quiser plugar isso num projeto que já existe,
-é só copiar a pasta `src/` por cima e manter seu `vite.config.js`/`index.html`
-atuais.
+Abre em `http://localhost:5173`. 
 
 ## Rotas
 
-- `/` — tela de upload da planilha
+- `/` -tela de upload da planilha
 - `/dashboard` — dashboard com os resultados
 
 ## Estrutura
