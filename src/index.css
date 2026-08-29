@@ -1,0 +1,72 @@
+@import url("https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap");
+
+:root {
+  /* paleta */
+  --purple-950: #2e0f5e;
+  --purple-800: #3e1481;
+  --purple-700: #5b21b6;
+  --purple-600: #7c3aed;
+  --purple-500: #8b5cf6;
+  --purple-400: #a78bfa;
+  --purple-300: #c4b5fd;
+  --purple-200: #e1d4fb;
+  --purple-100: #f1eafe;
+  --purple-50: #f8f5fe;
+  --white: #ffffff;
+  --ink: #211334;
+  --muted: #786e92;
+  --line: #e7defb;
+  --canvas: #efe9fb;
+
+  /* tipografia */
+  --font-display: "Sora", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+
+  --shadow-frame: 0 25px 60px -25px rgba(46, 15, 94, 0.35);
+  --shadow-card: 0 8px 24px -16px rgba(46, 15, 94, 0.4);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--canvas);
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+/* casca do app (o "frame" branco central) */
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 12px;
+}
+
+.app-frame {
+  width: 100%;
+  max-width: 1180px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  box-shadow: var(--shadow-frame);
+  overflow: hidden;
+}

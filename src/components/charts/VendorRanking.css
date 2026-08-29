@@ -1,0 +1,52 @@
+.vendor-ranking {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.vendor-row-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.vendor-avatar {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--purple-100);
+  color: var(--purple-700);
+  font-size: 9px;
+  font-weight: 700;
+  font-family: var(--font-display);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+
+.vendor-name {
+  font-size: 12.5px;
+  font-weight: 600;
+  flex: 1;
+}
+
+.vendor-value {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--muted);
+}
+
+.vendor-track {
+  height: 7px;
+  background: var(--purple-100);
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+.vendor-fill {
+  height: 100%;
+  border-radius: 100px;
+  background: linear-gradient(90deg, var(--purple-600), var(--purple-400));
+}
