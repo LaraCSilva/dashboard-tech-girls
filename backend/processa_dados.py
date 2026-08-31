@@ -2,13 +2,7 @@ import pandas as pd
 import os
 
 def ler_e_processar_planilha(caminho_arquivo):
-    """
-    Recebe o caminho de uma planilha (Excel ou CSV)
-    Lê os dados, calcula tudo que precisa
-    Devolve os resultados prontos em formato de dicionário
-    """
     try:
-        # ✅ PASSO 1: LER O ARQUIVO
         extensao = os.path.splitext(caminho_arquivo)[1].lower()
         
         if extensao == '.csv':
@@ -16,9 +10,8 @@ def ler_e_processar_planilha(caminho_arquivo):
         elif extensao in ['.xlsx', '.xls']:
             df = pd.read_excel(caminho_arquivo)
         else:
-            return {"erro": "Formato de arquivo não suportado. Use .csv ou .xlsx"}
+            return {"erro": "Formato de arquivo não suportado. Use .csv ou .xlsx", "sucesso": False}
 
-        # ✅ PASSO 2: VERIFICAR COLUNAS OBRIGATÓRIAS
         colunas_necessarias = ["Data", "Produto", "Quantidade", "Valor", "Vendedor", "Regiao"]
         colunas_faltando = [col for col in colunas_necessarias if col not in df.columns]
         
@@ -28,12 +21,10 @@ def ler_e_processar_planilha(caminho_arquivo):
                 "sucesso": False
             }
 
-        # ✅ PASSO 3: CALCULAR TOTAIS GERAIS
         total_vendas = df["Valor"].sum()
         quantidade_total = df["Quantidade"].sum()
         media_venda = df["Valor"].mean()
 
-        # ✅ PASSO 4: VENDAS POR PRODUTO
         por_produto = df.groupby("Produto").agg({
             "Valor": "sum",
             "Quantidade": "sum"
@@ -47,7 +38,6 @@ def ler_e_processar_planilha(caminho_arquivo):
                 "quantidade": int(linha["Quantidade"])
             })
 
-        # ✅ PASSO 5: VENDAS POR VENDEDOR
         por_vendedor = df.groupby("Vendedor").agg({
             "Valor": "sum"
         }).sort_values("Valor", ascending=False).reset_index()
@@ -59,7 +49,6 @@ def ler_e_processar_planilha(caminho_arquivo):
                 "valor_total": round(linha["Valor"], 2)
             })
 
-        # ✅ PASSO 6: VENDAS POR REGIÃO
         por_regiao = df.groupby("Regiao").agg({
             "Valor": "sum"
         }).reset_index()
@@ -71,7 +60,6 @@ def ler_e_processar_planilha(caminho_arquivo):
                 "valor_total": round(linha["Valor"], 2)
             })
 
-        # ✅ PASSO 7: VENDAS POR MÊS
         df["Data"] = pd.to_datetime(df["Data"], errors="coerce")
         df["Mes"] = df["Data"].dt.strftime("%Y-%m")
         por_mes = df.groupby("Mes")["Valor"].sum().reset_index()
@@ -83,7 +71,6 @@ def ler_e_processar_planilha(caminho_arquivo):
                 "valor_total": round(linha["Valor"], 2)
             })
 
-        # ✅ PASSO 8: MONTAR RESULTADO FINAL
         resultado = {
             "sucesso": True,
             "resumo_geral": {
@@ -106,7 +93,5 @@ def ler_e_processar_planilha(caminho_arquivo):
         }
 
 
-# ✅ TESTE RÁPIDO (só executa se rodar esse arquivo direto)
 if __name__ == "__main__":
-    print("✅ Módulo de processamento carregado com sucesso!")
-    print("👉 Esse arquivo é usado pelo app.py — não rode ele diretamente")
+    print("Módulo de processamento carregado com sucesso!")
