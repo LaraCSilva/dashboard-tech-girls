@@ -2,8 +2,10 @@ from flask import Flask, request, jsonify
 from processa_dados import ler_e_processar_planilha
 import os
 from werkzeug.utils import secure_filename
+from flask_cors import CORS
 
 aplicativo = Flask(__name__)
+CORS(aplicativo)
 
 PASTA_UPLOADS = "uploads"
 os.makedirs(PASTA_UPLOADS, exist_ok=True)

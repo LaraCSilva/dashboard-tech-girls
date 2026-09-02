@@ -34,7 +34,7 @@ def ler_e_processar_planilha(caminho_arquivo):
         for _, linha in por_produto.iterrows():
             lista_produtos.append({
                 "nome": linha["Produto"],
-                "valor_total": round(linha["Valor"], 2),
+                "valor_total": float(round(linha["Valor"], 2)),
                 "quantidade": int(linha["Quantidade"])
             })
 
@@ -46,7 +46,7 @@ def ler_e_processar_planilha(caminho_arquivo):
         for _, linha in por_vendedor.iterrows():
             ranking_vendedores.append({
                 "nome": linha["Vendedor"],
-                "valor_total": round(linha["Valor"], 2)
+                "valor_total": float(round(linha["Valor"], 2))
             })
 
         por_regiao = df.groupby("Regiao").agg({
@@ -57,7 +57,7 @@ def ler_e_processar_planilha(caminho_arquivo):
         for _, linha in por_regiao.iterrows():
             lista_regioes.append({
                 "regiao": linha["Regiao"],
-                "valor_total": round(linha["Valor"], 2)
+                "valor_total": float(round(linha["Valor"], 2))
             })
 
         df["Data"] = pd.to_datetime(df["Data"], errors="coerce")
@@ -68,15 +68,15 @@ def ler_e_processar_planilha(caminho_arquivo):
         for _, linha in por_mes.iterrows():
             lista_meses.append({
                 "mes": linha["Mes"],
-                "valor_total": round(linha["Valor"], 2)
+                "valor_total": float(round(linha["Valor"], 2))
             })
 
         resultado = {
             "sucesso": True,
             "resumo_geral": {
-                "total_vendas": round(total_vendas, 2),
+                "total_vendas": float(round(total_vendas, 2)),
                 "quantidade_total_produtos": int(quantidade_total),
-                "ticket_medio": round(media_venda, 2)
+                "ticket_medio": float(round(media_venda, 2))
             },
             "por_produto": lista_produtos,
             "ranking_vendedores": ranking_vendedores,
