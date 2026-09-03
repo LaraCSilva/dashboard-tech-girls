@@ -1,3 +1,4 @@
+import { useLocation } from "react-router-dom";
 import { ChevronDown, Download } from "lucide-react";
 import KpiCard from "../components/KpiCard";
 import Panel from "../components/Panel";
@@ -8,16 +9,25 @@ import VendorRanking from "../components/charts/VendorRanking";
 import RegionBarChart from "../components/charts/RegionBarChart";
 import { formatBRL } from "../utils/formatCurrency";
 import {
-  KPIS,
-  RECEITA_MENSAL,
-  CATEGORIAS,
-  VENDEDORES,
-  REGIOES,
-  PRODUTOS,
+  KPIS as KPIS_MOCK,
+  RECEITA_MENSAL as RECEITA_MENSAL_MOCK,
+  CATEGORIAS as CATEGORIAS_MOCK,
+  VENDEDORES as VENDEDORES_MOCK,
+  REGIOES as REGIOES_MOCK,
+  PRODUTOS as PRODUTOS_MOCK,
 } from "../data/salesData";
 import "./DashboardPage.css";
 
 export default function DashboardPage() {
+  const location = useLocation();
+  const dados = location.state?.dadosDashboard;
+
+  const KPIS = dados?.KPIS || KPIS_MOCK;
+  const RECEITA_MENSAL = dados?.RECEITA_MENSAL || RECEITA_MENSAL_MOCK;
+  const CATEGORIAS = dados?.CATEGORIAS || CATEGORIAS_MOCK;
+  const VENDEDORES = dados?.VENDEDORES || VENDEDORES_MOCK;
+  const REGIOES = dados?.REGIOES || REGIOES_MOCK;
+  const PRODUTOS = dados?.PRODUTOS || PRODUTOS_MOCK;
   return (
     <div>
       <div className="dashboard-header">

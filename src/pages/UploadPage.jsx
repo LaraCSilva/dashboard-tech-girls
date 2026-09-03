@@ -1,34 +1,56 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Upload, ArrowRight, FileSpreadsheet } from "lucide-react";
 import StepIndicator from "./StepIndicator";
 import "./UploadPage.css";
+import { adaptarDadosBackend } from "../utils/adaptarDados";
 
 export default function UploadPage() {
   const navigate = useNavigate();
   const [fileName, setFileName] = useState(null);
   const [progress, setProgress] = useState(0);
   const [dragOver, setDragOver] = useState(false);
+  const inputRef = useRef(null);
 
-  const startFakeUpload = useCallback((name) => {
-    setFileName(name);
-    setProgress(0);
-    let p = 0;
-    const timer = setInterval(() => {
-      p += 14 + Math.random() * 10;
-      if (p >= 100) {
-        p = 100;
-        clearInterval(timer);
+  const [erro, setErro] = useState(null);
+  const [dadosProcessados, setDadosProcessados] = useState(null);
+
+  const enviarArquivo = useCallback(async (file) => {
+    setFileName(file.name);
+    setProgress(30);
+    setErro(null);
+
+    const dadosForm = new FormData();
+    dadosForm.append("arquivo", file);
+
+    try {
+      const resposta = await fetch("http://localhost:5000/processar-planilha", {
+        method: "POST",
+        body: dadosForm,
+      });
+
+      const dados = await resposta.json();
+
+      if (!resposta.ok || !dados.sucesso) {
+        setErro(dados.erro || "Não foi possível processar a planilha.");
+        setProgress(0);
+        return;
       }
-      setProgress(Math.min(100, Math.round(p)));
-    }, 220);
+
+      setProgress(100);
+      const dadosAdaptados = adaptarDadosBackend(dados);
+      setDadosProcessados(dadosAdaptados);
+    } catch (e) {
+      setErro("Não foi possível conectar ao servidor. O backend está rodando?");
+      setProgress(0);
+    }
   }, []);
 
   const handleDrop = (e) => {
     e.preventDefault();
     setDragOver(false);
     const file = e.dataTransfer.files?.[0];
-    startFakeUpload(file ? file.name : "planilha-de-vendas.xlsx");
+    if (file) enviarArquivo(file);
   };
 
   return (
@@ -58,15 +80,32 @@ export default function UploadPage() {
         </div>
         <strong className="drop-title">Arraste sua planilha aqui</strong>
         <span className="drop-hint">ou clique para selecionar um arquivo do computador</span>
-        <button className="browse-btn" onClick={() => startFakeUpload("planilha-de-vendas.xlsx")}>
+        <button className="browse-btn" onClick={() => inputRef.current.click()}>
           Selecionar arquivo
         </button>
+        <input
+          type="file"
+          ref={inputRef}
+          accept=".csv,.xlsx,.xls"
+          style={{ display: "none" }}
+          onChange={(e) => {
+            const file = e.target.files?.[0];
+            if (file) enviarArquivo(file);
+          }}
+        />
+
         <div className="filetypes">
           {["XLSX", "CSV", "PDF"].map((t) => (
             <span key={t}>{t}</span>
           ))}
         </div>
       </div>
+
+      {erro && (
+        <div className="file-card" style={{ borderColor: "#e11d48" }}>
+          <span style={{ color: "#e11d48" }}>⚠ {erro}</span>
+        </div>
+      )}
 
       {fileName && (
         <div className="file-card">
@@ -86,7 +125,7 @@ export default function UploadPage() {
       )}
 
       {fileName && progress === 100 && (
-        <button className="continue-link" onClick={() => navigate("/dashboard")}>
+        <button className="continue-link" onClick={() => navigate("/dashboard", { state: { dadosDashboard: dadosProcessados } })}>
           Ver dashboard gerado
           <ArrowRight size={16} />
         </button>
