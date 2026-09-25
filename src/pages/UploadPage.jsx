@@ -4,6 +4,7 @@ import { Upload, ArrowRight, FileSpreadsheet } from "lucide-react";
 import StepIndicator from "./StepIndicator";
 import "./UploadPage.css";
 import { adaptarDadosBackend } from "../utils/adaptarDados";
+import { API_BASE } from "../utils/api";
 
 export default function UploadPage() {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ export default function UploadPage() {
     dadosForm.append("arquivo", file);
 
     try {
-      const resposta = await fetch("http://localhost:5000/processar-planilha", {
+      const resposta = await fetch(`${API_BASE}/processar-planilha`, {
         method: "POST",
         body: dadosForm,
       });
@@ -40,6 +41,16 @@ export default function UploadPage() {
       setProgress(100);
       const dadosAdaptados = adaptarDadosBackend(dados);
       setDadosProcessados(dadosAdaptados);
+
+      fetch(`${API_BASE}/api/historico`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nome_arquivo: file.name,
+          total_vendas: dados.total_vendas,
+          receita_liquida: dados.receita_liquida,
+        }),
+      }).catch(() => {});
     } catch (e) {
       setErro("Não foi possível conectar ao servidor. O backend está rodando?");
       setProgress(0);

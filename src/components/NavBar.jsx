@@ -16,8 +16,12 @@ export default function NavBar() {
         <NavLink to="/dashboard" className={({ isActive }) => (isActive ? "active" : "")}>
           Dashboard
         </NavLink>
-        <span className="navbar-link-disabled">Histórico</span>
-        <span className="navbar-link-disabled">Configurações</span>
+        <NavLink to="/historico" className={({ isActive }) => (isActive ? "active" : "")}>
+          Histórico
+        </NavLink>
+        <NavLink to="/configuracoes" className={({ isActive }) => (isActive ? "active" : "")}>
+          Configurações
+        </NavLink>
       </nav>
 
       <div className="navbar-avatar">TG</div>
