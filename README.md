@@ -54,3 +54,27 @@ src/
 da planilha, e o `DashboardPage` busca esses números via `fetch`/`useEffect`
 (ou por um estado global, se upload e dashboard precisarem compartilhar o
 resultado sem round-trip ao servidor).
+
+---
+
+## ✅ Validação com Usuário Externo
+
+Realizamos o teste do portal com uma pessoa externa à equipe, sem conhecimento técnico sobre o sistema, para avaliar usabilidade e desempenho.
+
+### Perfil do Avaliador
+- Profissional administrativo, usuário de planilhas no dia a dia
+- Sem contato prévio com o desenvolvimento do projeto
+
+### Resultados Obtidos
+| Item | Antes (Rotina Manual) | Depois (Portal Automatizado) |
+|---|---|---|
+| Tempo de processamento | ~15 minutos por relatório | **menos de 30 segundos** |
+| Facilidade de uso — Nota | — | **9,2 / 10** |
+| Entendimento das telas | — | Rápido e intuitivo |
+| Precisão dos dados | Conferência manual demorada | Resultados consistentes e automáticos |
+
+### Feedback do Avaliador
+> *"Muito prático! O processo é simples, dá pra entender sem precisar de explicação longa. O ganho de tempo é enorme comparado a fazer tudo na planilha."*
+
+### Conclusão
+O portal cumpre o objetivo de automatizar a rotina: reduz tempo, elimina passos manuais repetitivos e entrega os dados de forma clara e acessível.
