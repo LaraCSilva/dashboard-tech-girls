@@ -12,6 +12,12 @@ dist
 dist-ssr
 *.local
 
+# Backend (Python/Flask)
+backend/venv
+backend/__pycache__
+backend/uploads
+backend/historico.json
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

@@ -1,10 +1,13 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import pandas as pd
 import os
 import json
 from datetime import datetime
 
 aplicativo = Flask(__name__)
+aplicativo.json.sort_keys = False
+CORS(aplicativo)
 
 
 @aplicativo.route("/processar-planilha", methods=["POST"])
@@ -57,6 +60,7 @@ def processar_planilha():
         receita_por_regiao = df.groupby("Região")["Valor_Liquido"].sum().round(2).to_dict()
 
         resultado = {
+            "sucesso": True,
             "total_vendas": total_vendas,
             "receita_bruta": round(receita_bruta, 2),
             "receita_liquida": round(receita_liquida, 2),

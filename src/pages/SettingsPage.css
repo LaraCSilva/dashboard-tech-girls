@@ -1,0 +1,106 @@
+.settings-header {
+  padding: 28px 40px 0;
+}
+
+.settings-crumbs {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.settings-title {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.settings-body {
+  padding: 28px 40px 44px;
+  max-width: 560px;
+}
+
+.settings-state {
+  color: var(--muted);
+  font-size: 13.5px;
+  margin: 8px 0;
+}
+
+.settings-state-error {
+  color: #e11d48;
+}
+
+.settings-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.settings-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.settings-label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.settings-select {
+  font-family: inherit;
+  font-size: 13.5px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--purple-200);
+  background: var(--purple-50);
+  color: var(--ink);
+}
+
+.settings-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 6px;
+}
+
+.settings-save {
+  background: var(--purple-700);
+  color: var(--white);
+  border: none;
+  padding: 11px 22px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 13.5px;
+  transition: background 0.15s;
+}
+
+.settings-save:hover {
+  background: var(--purple-800);
+}
+
+.settings-save:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.settings-saved {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--purple-700);
+}
+
+@media (max-width: 900px) {
+  .settings-header {
+    padding: 22px 20px 0;
+  }
+  .settings-body {
+    padding: 22px 20px 32px;
+  }
+}

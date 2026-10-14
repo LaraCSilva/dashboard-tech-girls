@@ -59,7 +59,11 @@ export default function DashboardPage() {
           <KpiCard
             label="Total de vendas"
             value={KPIS.totalVendas}
-            delta="5 vendedores(as) ativos"
+            delta={
+              KPIS.vendedoresAtivos
+                ? `${KPIS.vendedoresAtivos} vendedores(as) ativos`
+                : "5 vendedores(as) ativos"
+            }
           />
           <KpiCard
             label="Ticket médio"
